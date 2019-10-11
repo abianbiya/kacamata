@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<style type="text/css">
+.imageWrapper {
+  position: relative;
+}
+.overlayImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+}</style>
+
+    <!-- Dropdown area start-->
+    <div class="dropdown-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="dropdown-list">
+                        <div class="dropdown-trig-hd">
+                            <h2>Upload Foto</h2>
+                            <p>File harus berupa gambar (jpg, jpeg, png) dengan maksimal ukuran 2MB.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div id="dropzone1" class="multi-uploader-cs">
+                                    <form action="{{ url_for('post_upload', jk=jk, km=km) }}" method="post" class="dropzone dropzone-nk needsclick" id="demoupload" enctype="multipart/form-data">
+                                        <div class="dz-message needsclick download-custom">
+                                            <i class="notika-icon notika-cloud"></i>
+                                            <h2>Upload Foto Wajah</h2>
+                                            <p><span class="note needsclick">(Silahkan klik disini, atau seret file ke kotak ini untuk upload)</span>
+                                            </p>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br><br>
+    <!-- Dropdown area End-->
+
+    <!-- Dropdown area start-->
+    <div class="dropdown-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="dropdown-list">
+                        <div class="dropdown-trig-hd">
+                            <h2>Hasil Klasifikasi</h2>
+                            <p>Foto terupload dan hasil klasifikasi</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div id="letak">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div id="kacamata"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Dropdown area End-->
+
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function(){
+    var baseUrl = "../../";
+    Dropzone.options.demoupload = {
+        init: function () {
+            this.on("success", function (file, response) {
+                obj = response;
+                $('#letak').html('<img src="'+baseUrl+obj.uploaded+'"/>');
+                $('#kacamata').html('<img src="'+baseUrl+obj.classified+'"/>');
+            });
+        }
+    };
+});
+    
+</script>
+{% endblock js %}
+
+<div id="letak" class="imageWrapper" style="display: none">
+        <img class="overlayImage" src="uploads/F56.jpg"/>
+        <img class="overlayImage" style="top:180px; left:161px" width="110" src="static/img/class/4.png">
+    </div>
