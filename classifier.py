@@ -18,11 +18,11 @@ class classifier:
     jk = None
 
     def __init__(self, jk, km):
-        clf = DecisionTreeClassifier(max_depth=2, random_state=1234)
-        if(km == 1):
-            input_file = "data_mentah_baca.csv"
-        else:
-            input_file = "data_mentah_sung.csv"
+        clf = DecisionTreeClassifier(max_depth=6, random_state=1234)
+        # if(km == 1):
+        input_file = "data_mentah_baca.csv"
+        # else:
+            # input_file = "data_mentah_sung.csv"
 
         # %% baca data
         df = pd.read_csv(input_file, sep=',')
@@ -31,7 +31,7 @@ class classifier:
 
         # convert categorical column to numeric
         df['kelamin'] = le_kelamin.fit_transform(df['kelamin'])
-        df['bingkai'] = le_bingkai.fit_transform(df['bingkai'])
+        # df['bingkai'] = le_bingkai.fit_transform(df['bingkai'])
 
         X = df.values[:, 2:-1]
         Y = df.values[:, -1]
@@ -40,9 +40,13 @@ class classifier:
         # scaler_training = StandardScaler()
         # X[:, 0:-1] = scaler_training.fit_transform(X[:, 0:-1])
 
+        # print(Y)
+        # exit()
         # pecah jadi data training dan testing
         X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.2, random_state=1234)
         clf.fit(X_train, y_train.astype('int'))
+        
+        
         self.classify = clf
         self.jk = jk
 
@@ -64,7 +68,14 @@ class classifier:
         tinggiWajah = np.linalg.norm(np.matrix((landmarks[27, 0], landmarks[17, 1])) - landmarks[8])
         indeksMorfo = tinggiWajah / lebarWajah * 100
 
-        hasil = self.classify.predict(np.array([[lebarWajah, tinggiWajah, jarak2, jarak2, indeksMorfo, self.jk]]))
+        print('Lebar Wajah: '+str(lebarWajah))
+        print('Jarak2: '+str(jarak2))
+        print('Jarak3: '+str(jarak3))
+        print('Tinggi Wajah: '+str(tinggiWajah))
+        print('Index Morfologi: '+str(indeksMorfo))
+
+        hasil = self.classify.predict(np.array([[lebarWajah, tinggiWajah, jarak2, jarak3, indeksMorfo, self.jk]]))
+        # print('hasil klasifikasi: '+str(hasil)
 
         return hasil[0], landmarks[17], landmarks[26]
 

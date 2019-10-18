@@ -39,11 +39,31 @@ def hello():
 
 @app.route('/upload/<jk>/<km>')
 def upload(jk, km):
-    return render_template('upload.html', jk=jk, km=km)
+    page = request.path.split('/')
+    if page[2] == '1' and page[3] == '1':
+        pg = 'bp'
+    elif page[2] == '2' and page[3] == '1':
+        pg = 'bw'
+    elif page[2] == '1' and page[3] == '2':
+        pg = 'gp'
+    elif page[2] == '2' and page[3] == '2':
+        pg = 'gw'
+
+    return render_template('upload.html', jk=jk, km=km, page=pg)
 
 @app.route('/webcam/<jk>/<km>')
 def webcam(jk, km):
-    return render_template('webcam.html', jk=jk, km=km)
+    page = request.path.split('/')
+    if page[2] == '1' and page[3] == '1':
+        pg = 'bp'
+    elif page[2] == '2' and page[3] == '1':
+        pg = 'bw'
+    elif page[2] == '1' and page[3] == '2':
+        pg = 'gp'
+    elif page[2] == '2' and page[3] == '2':
+        pg = 'gw'
+
+    return render_template('webcam.html', jk=jk, km=km, page=pg)
 
 @app.route('/post/upload/<jk>/<km>',  methods=['GET', 'POST'])
 def post_upload(jk, km):
@@ -129,7 +149,11 @@ def post_upload(jk, km):
                 
                 kiri = np.array(kiri)[0]
                 kanan = np.array(kanan)[0]
-                degree = (degrees(atan((int(kanan[0]) - int(kiri[0])) / (int(kanan[1]) - int(kiri[1])))))
+                if int(kanan[1]) - int(kiri[1]) != 0:
+                    degree = (degrees(atan((int(kanan[0]) - int(kiri[0])) / (int(kanan[1]) - int(kiri[1])))))
+                else:
+                    degree = 90
+
                 if degree < 0:
                     degree = (0 - 90 - degree)
                 else:
