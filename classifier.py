@@ -19,10 +19,10 @@ class classifier:
 
     def __init__(self, jk, km):
         clf = DecisionTreeClassifier(max_depth=6, random_state=1234)
-        # if(km == 1):
-        input_file = "data_mentah_baca.csv"
-        # else:
-            # input_file = "data_mentah_sung.csv"
+        if(km == 1):
+            input_file = "data_mentah_baca.csv"
+        else:
+            input_file = "data_mentah_sung.csv"
 
         # %% baca data
         df = pd.read_csv(input_file, sep=',')
@@ -30,7 +30,7 @@ class classifier:
         le_bingkai = LabelEncoder()
 
         # convert categorical column to numeric
-        df['kelamin'] = le_kelamin.fit_transform(df['kelamin'])
+        # df['kelamin'] = le_kelamin.fit_transform(df['kelamin'])
         # df['bingkai'] = le_bingkai.fit_transform(df['bingkai'])
 
         X = df.values[:, 2:-1]
