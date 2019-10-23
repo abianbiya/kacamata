@@ -41,7 +41,7 @@ class classifier:
         # X[:, 0:-1] = scaler_training.fit_transform(X[:, 0:-1])
 
         print(df)
-        exit()
+        # exit()
         # pecah jadi data training dan testing
         X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.2, random_state=1234)
         clf.fit(X_train, y_train.astype('int'))
