@@ -15,7 +15,7 @@ class DataStore:
         self.ekse = self.db.table('eksekusi')
         self.kelas = self.db.table('kelas')
         self.kacamata = Query()
-        # self.initialize()
+        #self.initialize()
 
     def initialize(self):
         self.db.purge_table('kelas')
@@ -26,6 +26,7 @@ class DataStore:
                 "nama":"baca-00",
                 "path": "static/img/class/0.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 1,
@@ -33,6 +34,7 @@ class DataStore:
                 "nama":"baca-01",
                 "path": "static/img/class/1.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 2,
@@ -40,6 +42,7 @@ class DataStore:
                 "nama":"baca-02",
                 "path": "static/img/class/2.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 3,
@@ -47,6 +50,7 @@ class DataStore:
                 "nama":"baca-03",
                 "path": "static/img/class/3.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 4,
@@ -54,6 +58,7 @@ class DataStore:
                 "nama":"baca-04",
                 "path": "static/img/class/4.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 5,
@@ -61,6 +66,7 @@ class DataStore:
                 "nama":"baca-05",
                 "path": "static/img/class/5.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },
             # -- baca-sun
@@ -70,6 +76,7 @@ class DataStore:
                 "nama": "sung-00",
                 "path": "static/img/clazz/0.png",
                 "like": 0,
+                "dislike" : 0,
                 "predicted": 0
             },{
                 "kelas": 1,
@@ -77,6 +84,7 @@ class DataStore:
                 "nama":"sung-01",
                 "path": "static/img/clazz/1.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 2,
@@ -84,6 +92,7 @@ class DataStore:
                 "nama":"sung-02",
                 "path": "static/img/clazz/2.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 3,
@@ -91,6 +100,7 @@ class DataStore:
                 "nama":"sung-03",
                 "path": "static/img/clazz/3.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 4,
@@ -98,6 +108,7 @@ class DataStore:
                 "nama":"sung-04",
                 "path": "static/img/clazz/4.png",
                 "like" : 0,
+                "dislike" : 0,
                 "predicted" : 0
             },{
                 "kelas": 5,
@@ -105,6 +116,7 @@ class DataStore:
                 "nama":"sung-05",
                 "path": "static/img/clazz/5.png",
                 "like": 0,
+                "dislike" : 0,
                 "predicted": 0
             },{
                 "kelas": 6,
@@ -112,6 +124,7 @@ class DataStore:
                 "nama":"sung-06",
                 "path": "static/img/clazz/6.png",
                 "like": 0,
+                "dislike" : 0,
                 "predicted" : 0
             }]
 
@@ -135,7 +148,9 @@ class DataStore:
 
         if(is_like == True):
             self.kelas.update({'like': ini['like']+1}, doc_ids=[ini.doc_id])
-
+        else:
+            self.kelas.update({'dislike':ini['like']+1}, doc_ids=[ini.doc_id])
+            
         return True
 
 

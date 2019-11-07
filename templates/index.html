@@ -11,7 +11,8 @@
 		============================================ -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <!-- Google Fonts
-		============================================ -->
+    ============================================ -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
 		============================================ -->
@@ -79,7 +80,7 @@
                     <div class="header-top-menu">
                         <ul class="nav navbar-nav notika-top-nav">
                             <div style="margin-top:8px">
-                                <button class="btn btn-lightblue lightblue-icon-notika waves-effect" onclick="rekap()"><i class="notika-icon notika-next"></i></button>
+                                <button class="btn btn-lightblue lightblue-icon-notika waves-effect" onclick="rekap()"><i class="fas fa-chart-bar"></i></button>
                               </div>
                         </ul>
                     </div>
@@ -120,10 +121,10 @@
                     <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
                         <li {% if request.path == '/home' %} class="active" {% endif %}><a  href="{{ url_for('hello') }}"><i class="notika-icon notika-house"></i> Home</a>
                         </li>
-                        <li {% if page == 'bp' %} class="active" {% endif %}><a data-toggle="tab" href="#pria"><i class="notika-icon notika-mail"></i> Kacamata Baca Pria</a></li>
-                        <li {% if page == 'bw' %} class="active" {% endif %}><a data-toggle="tab" href="#wanita"><i class="notika-icon notika-mail"></i> Kacamata Baca Wanita</a></li>
-                        <li {% if page == 'gp' %} class="active" {% endif %}><a data-toggle="tab" href="#prias"><i class="notika-icon notika-mail"></i> Sun Glasses Pria</a></li>
-                        <li {% if page == 'gw' %} class="active" {% endif %}><a data-toggle="tab" href="#wanitas"><i class="notika-icon notika-mail"></i> Sun Glasses Wanita</a></li>
+                        <li {% if page == 'bp' %} class="active" {% endif %}><a data-toggle="tab" href="#pria"><i class="fas fa-glasses"></i> Kacamata Baca Pria</a></li>
+                        <li {% if page == 'bw' %} class="active" {% endif %}><a data-toggle="tab" href="#wanita"><i class="fas fa-glasses"></i> Kacamata Baca Wanita</a></li>
+                        <li {% if page == 'gp' %} class="active" {% endif %}><a data-toggle="tab" href="#prias"><i class="fas fa-glasses"></i> Sun Glasses Pria</a></li>
+                        <li {% if page == 'gw' %} class="active" {% endif %}><a data-toggle="tab" href="#wanitas"><i class="fas fa-glasses"></i> Sun Glasses Wanita</a></li>
                         
                         </li>
                     </ul>
@@ -206,7 +207,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="footer-copy-right">
-                        <p>Copyright © Kacamatamu 2019 . All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                        <p>Copyright © Ang-Kacamata 2019 . All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
                     </div>
                 </div>
             </div>
@@ -292,10 +293,13 @@
 
     <script>
     function rekap() {
+      localStorage.setItem("isreset", "");
       window.location = "/data";
     }
 
     {% if request.path == '/data' %}
+    let isreset = localStorage.getItem("isreset");
+    if(isreset != "true"){
     $.confirm({
         title: 'Restricted Area!',
         theme: 'supervan',
@@ -312,7 +316,7 @@
                 btnClass: 'btn-blue',
                 action: function () {
                     var pass = this.$content.find('.pass').val();
-                    if(pass != '123456'){
+                    if(pass != '123'){
                         $.alert('Wrong passcode.');
                         return false;
                     }else{
@@ -335,6 +339,7 @@
             });
         }
     });
+    }
 
     {%  endif %}
     </script>

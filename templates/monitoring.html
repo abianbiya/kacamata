@@ -1,7 +1,19 @@
 {% extends 'index.html' %}
 
 {% block content %}
-
+<body>
+    <!--tombol restart cart-->
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="header-top-menu">
+            <ul class="nav navbar-nav notika-top-nav">
+                <div style="margin-top:8px">
+                    <button class="btn btn-lightblue lightblue-icon-notika waves-effect" onclick="rekapnol()"><i class="fas fa-file"></i>Reset data</button>
+                    <a href="/reset"></a>
+                </div>
+            </ul>
+        </div>
+    </div>
+</body>
     <!-- Dropdown area start-->
     <div class="dropdown-area">
         <div class="container">
@@ -9,7 +21,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="dropdown-list">
                         <div class="dropdown-trig-hd">
-                            <h2>Data Kacamata Baca</h2>
+                            <h2>Data Kacamata Baca Yang Banyak Disukai</h2>
                             <p></p>
                         </div>
                         <div class="row">
@@ -20,7 +32,7 @@
                         </div>
                         <br><br><br>
                         <div class="dropdown-trig-hd">
-                            <h2>Data Kacamata Hitam</h2>
+                            <h2>Data Kacamata Hitam Yang Banyak Disukai</h2>
                             <p></p>
                         </div>
                         <div class="row">
@@ -28,6 +40,27 @@
                                 {{ data }}
                                 <canvas id="myChartz" width="400" height="200"></canvas>
                             </div>
+                        <br><br><br>
+                            <h2>Data Kacamata Baca Yang Tidak Disukai</h2>
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ data }}
+                                <canvas id="myChartds" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                        <br><br><br>
+                        <div class="dropdown-trig-hd">
+                            <h2>Data Kacamata Hitam Yang Tidak Disukai</h2>
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {{ data }}
+                                <canvas id="myChartdz" width="400" height="200"></canvas>
+                            </div>
+
                         </div>
                     
                     </div>
@@ -121,8 +154,98 @@ $(document).ready(function(){
             }
         }
     });
+
+    var ctxds = document.getElementById('myChartds').getContext('2d');
+    var myChart = new Chart(ctxds, {
+        type: 'bar',
+        data: {
+            labels: {{ namas }},
+            datasets: [{
+                label: '# of Votes',
+                data: {{ dislikes }},
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctxdz = document.getElementById('myChartdz').getContext('2d');
+    var myChart = new Chart(ctxdz, {
+        type: 'bar',
+        data: {
+            labels: {{ namaz }},
+            datasets: [{
+                label: '# of Votes',
+                data: {{ dislikez }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 111, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 111, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 });
+
+
+function rekapnol() {
+        localStorage.setItem("isreset", "true");
+        window.location = "/reset";
+        // $.get("/reset",function(){
+        //     loca   
+        // })
+      // alert('NOL');
+    } 
+
 {% endautoescape %}
 </script>
 
 {% endblock js %}
+     

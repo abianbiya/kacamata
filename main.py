@@ -202,14 +202,40 @@ def monitoring():
     kacas, matas = data.all_kacamata(True)
     likes = []
     namas = []
+    dislikes = []
     for i in kacas:
         likes.append(i['like'])
         namas.append(i['nama'])
-
+        dislikes.append(i['dislike'])
+        
     likez = []
     namaz = []
+    dislikez = []
     for i in matas:
         likez.append(i['like'])
         namaz.append(i['nama'])
+        dislikez.append(i['dislike'])
+   
+    return render_template('monitoring.html', likes=likes, namas=namas, likez=likez, namaz=namaz, dislikes=dislikes, dislikez=dislikez)
 
-    return render_template('monitoring.html', likes=likes, namas=namas, likez=likez, namaz=namaz)
+@app.route('/reset')
+def enol():
+        
+    # ekse = None
+    # kelas = None
+    # kacamata = None
+    # db = None
+
+    # def __init__(self):
+    #     self.db = TinyDB('db/database.json')
+    #     self.ekse = self.db.table('eksekusi')
+    #     self.kelas = self.db.table('kelas')
+    #     self.kacamata = Query()
+    # self.initialize()
+
+    ds = DataStore()
+    ds.initialize()
+    
+    return redirect("/data", code=302)
+    # return (monitoring)
+
