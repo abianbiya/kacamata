@@ -99,7 +99,8 @@ $(document).ready(function(){
                                             'src="'+baseUrl+obj.classified+'">');
                     $('#clz').html('Kacamata: '+obj.kelas);
                     $('#btns').html('<button onclick="like(\''+obj.kelas+'\', true)" class="btn btn-default "><i class="fa fa-thumbs-o-up"></i></button>'+
-                                    '<button onclick="like(\''+obj.kelas+'\', false)" class="btn btn-default "><i class="fa fa-thumbs-o-down"></i></button>');
+                                    '<button onclick="like(\''+obj.kelas+'\', false)" class="btn btn-default "><i class="fa fa-thumbs-o-down"></i></button>'+
+                                    '<button onclick="modal(\''+obj.kiriY+'\')" class="btn btn-default ">Info Index</button>');
                 }
             });
         }
@@ -115,6 +116,10 @@ function like(kacamata, is){
         window.location = baseUrl+'dislike/'+kacamata;
     }
     
+}
+
+function modal(objrand) {
+    BootstrapDialog.alert("<img alt='index info' src='{{ url_for('static', filename='image_with_landmarks.jpg') }}?version="+objrand+"'></img>");
 }
     
 </script>

@@ -158,7 +158,8 @@
                                             'src="'+baseUrl+obj.classified+'">');
                     $('#clz').html('Kacamata: '+obj.kelas);
                     $('#btns').html('<button onclick="like(\''+obj.kelas+'\', true)" class="btn btn-default "><i class="fa fa-thumbs-o-up"></i></button>'+
-                                    '<button onclick="like(\''+obj.kelas+'\', false)" class="btn btn-default "><i class="fa fa-thumbs-o-down"></i></button>');
+                                    '<button onclick="like(\''+obj.kelas+'\', false)" class="btn btn-default "><i class="fa fa-thumbs-o-down"></i></button>'+
+                                    '<button onclick="modal()" class="btn btn-default ">Info Index</button>');
                 }
             }else if(xmlhttp.status != 200){
                 alert('Gagal upload foto.')
@@ -177,6 +178,10 @@
             window.location = baseUrl+'dislike/'+kacamata;
         }
         
+    }
+
+    function modal() {
+        BootstrapDialog.alert("<img alt='index info' src='{{ url_for('static', filename='image_with_landmarks.jpg?dummy=') }}"+Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)+"'></img>");
     }
     
 </script>

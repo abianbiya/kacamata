@@ -76,6 +76,7 @@ class classifier:
 
         hasil = self.classify.predict(np.array([[lebarWajah, tinggiWajah, jarak2, jarak3, indeksMorfo, self.jk]]))
         # print('hasil klasifikasi: '+str(hasil)
+        self.anotated_image(path)
 
         return hasil[0], landmarks[17], landmarks[26]
 
@@ -104,6 +105,39 @@ class classifier:
                         color=(0, 0, 255))
             cv2.circle(im, pos, 1, color=(0, 255, 255))
         return im
+
+    def anotated_image(self, path):
+        image = cv2.imread(path)
+
+        iz, landmarks, rects = self.get_landmarks(image)
+        (bX, bY, bW, bH) = face_utils.rect_to_bb(rects[0])
+
+        lebarWajah = np.linalg.norm(landmarks[0] - landmarks[16])
+        jarak2 = np.linalg.norm(landmarks[2] - landmarks[14])
+        jarak3 = np.linalg.norm(landmarks[5] - landmarks[11])
+        tinggiWajah = np.linalg.norm(np.matrix((landmarks[27, 0], landmarks[17, 1])) - landmarks[8])
+        indeksMorfo = tinggiWajah / lebarWajah * 100
+
+        print("lebar: {:0.2f}, tinggi: {:0.2f}, indeks: {:0.2f}".format(lebarWajah, tinggiWajah, indeksMorfo))
+        print(landmarks.shape)
+        print(str(landmarks[17]))
+        print(str(landmarks[17]).split(' '))
+
+        cv2.putText(image,
+                    "jarak-jarak: {:0.2f}, {:0.2f}, {:0.2f}, {:0.2f}".format(lebarWajah, tinggiWajah, jarak2, jarak3),
+                    (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+        cv2.putText(image, "Lebar : {:0.2f}".format(lebarWajah), (40, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255),
+                    1)
+        cv2.putText(image, "Panjang: {:0.2f}".format(tinggiWajah), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.35,
+                    (0, 0, 255), 1)
+        cv2.putText(image, "Jarak_2: {:0.2f}".format(jarak2), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+        cv2.putText(image, "Jarak_3: {:0.2f}".format(jarak3), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+        cv2.putText(image, "Indeks Morfologi: {:0.2f}".format(indeksMorfo), (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.35,
+                    (0, 0, 255), 1)
+
+        image_with_landmarks = self.annotate_landmarks(image, landmarks)
+
+        cv2.imwrite('static/image_with_landmarks.jpg', image_with_landmarks)
 
 # cl = classifier()
 # print(cl.predict('uploads/F68.jpg'))
