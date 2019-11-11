@@ -78,7 +78,7 @@ class classifier:
         # print('hasil klasifikasi: '+str(hasil)
         self.anotated_image(path)
 
-        return hasil[0], landmarks[17], landmarks[26]
+        return hasil[0], landmarks[17], landmarks[26], indeksMorfo
 
 
     def get_landmarks(self, im):

@@ -100,7 +100,7 @@ $(document).ready(function(){
                     $('#clz').html('Kacamata: '+obj.kelas);
                     $('#btns').html('<button onclick="like(\''+obj.kelas+'\', true)" class="btn btn-default "><i class="fa fa-thumbs-o-up"></i></button>'+
                                     '<button onclick="like(\''+obj.kelas+'\', false)" class="btn btn-default "><i class="fa fa-thumbs-o-down"></i></button>'+
-                                    '<button onclick="modal(\''+obj.kiriY+'\')" class="btn btn-default ">Info Index</button>');
+                                    '<button onclick="modal(\''+obj.kiriY+'\', \''+obj.karakter[0]+'\', \''+obj.karakter[1]+'\')" class="btn btn-default ">Info Index</button><br><br>');
                 }
             });
         }
@@ -118,8 +118,9 @@ function like(kacamata, is){
     
 }
 
-function modal(objrand) {
-    BootstrapDialog.alert("<img alt='index info' src='{{ url_for('static', filename='image_with_landmarks.jpg') }}?version="+objrand+"'></img>");
+function modal(objrand, karakter, bentuk) {
+    BootstrapDialog.alert("<center><img alt='index info' src='{{ url_for('static', filename='image_with_landmarks.jpg') }}?version="+objrand+"'></img></center>"+
+                            "<br><br><center><p>Karakter Wajah: "+karakter+" ("+bentuk+")</p></center>");
 }
     
 </script>

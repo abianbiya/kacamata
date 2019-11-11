@@ -82,7 +82,7 @@ def post_upload(jk, km):
                 f.write(imgdata)
             
             claz = classifier(jk, km)
-            hasil, kiri, kanan = claz.predict(filename)
+            hasil, kiri, kanan, index = claz.predict(filename)
             code=200
             if hasil == 98:
                 code=98
@@ -94,7 +94,14 @@ def post_upload(jk, km):
                 return jsonify(
                     code=code
                 )
-                
+
+            if(index <= 83.9):
+                karakter = ["Euryprosop", "Bulat"]
+            elif(index > 83.9 and index <= 87.9):
+                karakter = ["Mesoprosop", "Kotak"]
+            else:
+                karakter = ["Leptoprosop", "Oval"]
+
             kiri = np.array(kiri)[0]
             kanan = np.array(kanan)[0]
             degree = (degrees(atan((int(kanan[0]) - int(kiri[0])) / (int(kanan[1]) - int(kiri[1])))))
@@ -119,7 +126,8 @@ def post_upload(jk, km):
                 kiriY=int(kiri[1]),
                 kananX=int(kanan[0]),
                 kananY=int(kanan[1]),
-                degree=degree
+                degree=degree,
+                karakter=karakter
             )
 
         if 'file' in request.files:
@@ -134,7 +142,7 @@ def post_upload(jk, km):
                 pathh = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(pathh)
                 claz = classifier(jk, km)
-                hasil, kiri, kanan = claz.predict(pathh)
+                hasil, kiri, kanan, index = claz.predict(pathh)
                 code=200
                 if hasil == 98:
                     code=98
@@ -146,7 +154,14 @@ def post_upload(jk, km):
                     return jsonify(
                         code=code
                     )
-                
+
+                if (index <= 83.9):
+                    karakter = ["Euryprosop", "Bulat"]
+                elif (index > 83.9 and index <= 87.9):
+                    karakter = ["Mesoprosop", "Kotak"]
+                else:
+                    karakter = ["Leptoprosop", "Oval"]
+
                 kiri = np.array(kiri)[0]
                 kanan = np.array(kanan)[0]
                 if int(kanan[1]) - int(kiri[1]) != 0:
@@ -175,7 +190,8 @@ def post_upload(jk, km):
                     kiriY=int(kiri[1]),
                     kananX=int(kanan[0]),
                     kananY=int(kanan[1]),
-                    degree=degree
+                    degree=degree,
+                    karakter=karakter
                 )
     return request.files
 
