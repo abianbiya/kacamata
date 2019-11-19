@@ -95,12 +95,20 @@ def post_upload(jk, km):
                     code=code
                 )
 
-            if(index <= 83.9):
-                karakter = ["Euryprosop", "Bulat"]
-            elif(index > 83.9 and index <= 87.9):
-                karakter = ["Mesoprosop", "Kotak"]
+            if jk == 1: 
+                if (index <= 83.9):
+                    karakter = ["Euryprosop", "Bulat"]
+                elif (index > 83.9 and index <= 87.9):
+                    karakter = ["Mesoprosop", "Kotak"]
+                else:
+                    karakter = ["Leptoprosop", "Oval"]
             else:
-                karakter = ["Leptoprosop", "Oval"]
+                if (index <= 80.9):
+                    karakter = ["Euryprosop", "Bulat"]
+                elif (index > 80.9 and index <= 84.9):
+                    karakter = ["Mesoprosop", "Kotak"]
+                else:
+                    karakter = ["Leptoprosop", "Oval"]
 
             kiri = np.array(kiri)[0]
             kanan = np.array(kanan)[0]
@@ -155,12 +163,21 @@ def post_upload(jk, km):
                         code=code
                     )
 
-                if (index <= 83.9):
-                    karakter = ["Euryprosop", "Bulat"]
-                elif (index > 83.9 and index <= 87.9):
-                    karakter = ["Mesoprosop", "Kotak"]
+                if jk == 1: 
+                    if (index <= 83.9):
+                        karakter = ["Euryprosop", "Bulat"]
+                    elif (index > 83.9 and index <= 87.9):
+                        karakter = ["Mesoprosop", "Kotak"]
+                    else:
+                        karakter = ["Leptoprosop", "Oval"]
                 else:
-                    karakter = ["Leptoprosop", "Oval"]
+                    if (index <= 80.9):
+                        karakter = ["Euryprosop", "Bulat"]
+                    elif (index > 80.9 and index <= 84.9):
+                        karakter = ["Mesoprosop", "Kotak"]
+                    else:
+                        karakter = ["Leptoprosop", "Oval"]
+
 
                 kiri = np.array(kiri)[0]
                 kanan = np.array(kanan)[0]
