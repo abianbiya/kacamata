@@ -95,7 +95,7 @@ def post_upload(jk, km):
                     code=code
                 )
 
-            if jk == 1: 
+            if jk == '1': 
                 if (index <= 83.9):
                     karakter = ["Euryprosop", "Bulat"]
                 elif (index > 83.9 and index <= 87.9):
@@ -163,7 +163,7 @@ def post_upload(jk, km):
                         code=code
                     )
 
-                if jk == 1: 
+                if jk == '1': 
                     if (index <= 83.9):
                         karakter = ["Euryprosop", "Bulat"]
                     elif (index > 83.9 and index <= 87.9):
